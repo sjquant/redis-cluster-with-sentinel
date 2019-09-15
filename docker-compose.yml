@@ -7,6 +7,7 @@ services:
       - 6379:6379
     networks:
       - redis_network
+    restart: unless-stopped
 
   slave_01:
     image: redis:5.0.5
@@ -15,6 +16,7 @@ services:
       - 6380:6379
     networks:
       - redis_network
+    restart: unless-stopped
   
   slave_02:
     image: redis:5.0.5
@@ -23,6 +25,7 @@ services:
       - 6381:6379
     networks:
       - redis_network
+    restart: unless-stopped
 
   sentinel:
     build: sentinel
@@ -31,6 +34,7 @@ services:
       - SENTINEL_FAILOVER=5000
     networks:
       - redis_network
+    restart: unless-stopped
 
   proxy:
     build: ./haproxy
@@ -43,6 +47,7 @@ services:
     ports:
       - 9000:9000
       - 8080:80
+    restart: unless-stopped
 
 networks:
   redis_network:
