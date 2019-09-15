@@ -2,7 +2,7 @@ version: '3'
 
 services:
   master:
-    image: redis:5.0.5
+    build: ./master
     ports:
       - 6379:6379
     networks:
@@ -10,8 +10,7 @@ services:
     restart: unless-stopped
 
   slave_01:
-    image: redis:5.0.5
-    command: redis-server --slaveof master 6379
+    build: ./slave
     ports:
       - 6380:6379
     networks:
@@ -19,8 +18,7 @@ services:
     restart: unless-stopped
   
   slave_02:
-    image: redis:5.0.5
-    command: redis-server --slaveof master 6379
+    build: ./slave
     ports:
       - 6381:6379
     networks:
